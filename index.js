@@ -1,6 +1,44 @@
 
+const jobData = [
+  {
+    title: "Software Engineer",
+    company: "Tech Solutions",
+    location: "New York, NY",
+  },
+  {
+    title: "Data Analyst",
+    company: "Data Insights",
+    location: "San Francisco, CA",
+  },
+  {
+    title: "Web Developer",
+    company: "Web Creators",
+    location: "Austin, TX",
+  },
+  {
+    title: "Project Manager",
+    company: "Project Pros",
+    location: "Chicago, IL",
+  },
+  {
+    title: "UX Designer",
+    company: "Design Studio",
+    location: "Los Angeles, CA",
+  },
+  {
+    title: "Marketing Specialist",
+    company: "Marketing Masters",
+    location: "Miami, FL",
+  },
+  {
+    title: "System Administrator",
+    company: "IT Solutions",
+    location: "Seattle, WA",
+  }
+];
+
 async function checkEmail(email) {
-  const url = 'https://validect-email-verification-v1.p.rapidapi.com/v1/verify?email=soban.scf%40gmail.com';
+  const url = 'https://validect-email-verification-v1.p.rapidapi.com/v1/verify?email=' + encodeURIComponent(email);
   const options = {
     method: 'GET',
     headers: {
@@ -40,32 +78,29 @@ async function checkEmail(email) {
 //   alert("Login successful! Check console for details.");
 // });
 
-//disable form submission on Enter key
-document.getElementById("loginForm").onkeydown = function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-  }
-};
 
 function SignIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  if (email === "" || password === "") {
+  console.log("Email:", email);
+  console.log("Password:", password);
+
+  if (email === "" || password === "") {  
     alert("Please fill in all fields.");
     return;
   }
 
-  // Check if email is valid
-  const status = checkEmail(email);
-  if (status !== "valid") {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  console.log("Email:", email);
-  console.log("Password:", password);
-  alert("Login successful! Check console for details.");
+  checkEmail(email).then(status => {
+    if (status == "invalid") {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    alert("Login successful! Check console for details.");
+  });
+  
+  //redirect to job listings page
+  window.location.href = "jobs.html";
 }
 
 
@@ -83,16 +118,54 @@ function SignUp() {
     alert("Passwords do not match."); 
     return;
   }
+ checkEmail(email).then(status => {
+    if (status == "invalid") {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    alert("Sign up successful!");
+ });
 
-  // Check if email is valid
-  const status = checkEmail(email);
-  if (status !== "valid") {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  alert("Sign up successful!");
+  //redirect to login page
+  window.location.href = "index.html";
 }
+
+
+function toggleMenu() {
+  const menu = document.querySelector('.nav-links');
+  menu.classList.toggle('active');
+}
+
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission on Enter key
+    }
+  });
+}
+
+console.log("Job data loaded:", jobData);
+
+const jobList = document.querySelector(".job-list");
+if (jobList) {
+  jobList.innerHTML = "";
+  jobData.forEach(job => {
+    const jobCard = document.createElement("div");
+    jobCard.className = "job-card";
+    jobCard.innerHTML = `
+      <h4>${job.title}</h4>
+      <p><strong>Company:</strong> ${job.company}</p>
+      <p><strong>Location:</strong> ${job.location}</p>
+      <button class="apply-button">Apply Now</button>
+    `;
+    jobList.appendChild(jobCard);
+  });
+}
+
+
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   const navToggle = document.querySelector('.nav-toggle');
@@ -102,7 +175,3 @@ function SignUp() {
 //   });
 // });
 
-function toggleMenu() {
-  const menu = document.querySelector('.nav-links');
-  menu.classList.toggle('active');
-}
