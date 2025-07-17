@@ -40,6 +40,13 @@ async function checkEmail(email) {
 //   alert("Login successful! Check console for details.");
 // });
 
+//disable form submission on Enter key
+document.getElementById("loginForm").onkeydown = function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+  }
+};
+
 function SignIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
