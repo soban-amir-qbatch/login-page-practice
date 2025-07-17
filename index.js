@@ -17,9 +17,30 @@ async function checkEmail(email) {
   }
 }
 
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent actual form submission
+// document.getElementById("loginForm").addEventListener("submit", function(event) {
+//   event.preventDefault(); // Prevent actual form submission
 
+//   const email = document.getElementById("email").value;
+//   const password = document.getElementById("password").value;
+
+//   if (email === "" || password === "") {
+//     alert("Please fill in all fields.");
+//     return;
+//   }
+
+//   // Check if email is valid
+//   const status = checkEmail(email);
+//   if (status !== "valid") {
+//     alert("Please enter a valid email address.");
+//     return;
+//   }
+
+//   console.log("Email:", email);
+//   console.log("Password:", password);
+//   alert("Login successful! Check console for details.");
+// });
+
+function SignIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -38,7 +59,33 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   console.log("Email:", email);
   console.log("Password:", password);
   alert("Login successful! Check console for details.");
-});
+}
+
+
+function SignUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmpassword").value;
+
+  if (email === "" || password === "" || confirmPassword === "") {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match."); 
+    return;
+  }
+
+  // Check if email is valid
+  const status = checkEmail(email);
+  if (status !== "valid") {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  alert("Sign up successful!");
+}
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   const navToggle = document.querySelector('.nav-toggle');

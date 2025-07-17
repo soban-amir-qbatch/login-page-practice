@@ -30,7 +30,7 @@
     </nav>
 
     <div class="header">
-      <h2>Login Portal</h2>
+      <h2>Account Creation</h2>
     </div>
 
     <div class="form-container">
@@ -45,10 +45,14 @@
           <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-          <button class="button" onclick="signIn()">Login</button>
+          <label for="confirmpassword">Confirm Password</label><br>
+          <input type="password" id="confirmpassword" name="confirmpassword" required>
         </div>
         <div class="form-group">
-          <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+          <button class="button" onclick="signUp()">Sign Up</button>
+        </div>
+        <div class="form-group">
+          <p>Already have an account? <a href="index.html">Login</a></p>
         </div>
       </form>
     </div>
